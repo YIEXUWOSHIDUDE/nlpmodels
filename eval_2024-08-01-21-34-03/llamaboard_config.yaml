@@ -1,0 +1,21 @@
+eval.batch_size: 2
+eval.cutoff_len: 1024
+eval.dataset:
+- test_data1
+eval.dataset_dir: data
+eval.max_new_tokens: 512
+eval.max_samples: '100000'
+eval.output_dir: eval_2024-08-01-21-34-03
+eval.predict: true
+eval.temperature: 0.95
+eval.top_p: 0.7
+top.booster: auto
+top.checkpoint_path:
+- train_2024-08-01-21-34-03
+top.finetuning_type: lora
+top.model_name: Gemma-2-9B
+top.quantization_bit: none
+top.quantization_method: bitsandbytes
+top.rope_scaling: none
+top.template: default
+top.visual_inputs: false

@@ -1,0 +1,99 @@
+[INFO|parser.py:317] 2024-08-10 13:24:20,670 >> Process rank: 0, device: cuda:0, n_gpu: 1, distributed training: False, compute dtype: None
+
+[INFO|tokenization_utils_base.py:2159] 2024-08-10 13:24:20,777 >> loading file tokenizer.model
+
+[INFO|tokenization_utils_base.py:2159] 2024-08-10 13:24:20,778 >> loading file tokenizer.json
+
+[INFO|tokenization_utils_base.py:2159] 2024-08-10 13:24:20,779 >> loading file added_tokens.json
+
+[INFO|tokenization_utils_base.py:2159] 2024-08-10 13:24:20,779 >> loading file special_tokens_map.json
+
+[INFO|tokenization_utils_base.py:2159] 2024-08-10 13:24:20,779 >> loading file tokenizer_config.json
+
+[INFO|loader.py:50] 2024-08-10 13:24:21,661 >> Loading dataset test_data1.json...
+
+[INFO|configuration_utils.py:731] 2024-08-10 13:24:23,372 >> loading configuration file D:\models\gemma-2-9b\config.json
+
+[INFO|configuration_utils.py:800] 2024-08-10 13:24:23,374 >> Model config Gemma2Config {
+  "_name_or_path": "D:\\models\\gemma-2-9b",
+  "architectures": [
+    "Gemma2ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "attn_logit_softcapping": 50.0,
+  "bos_token_id": 2,
+  "cache_implementation": "hybrid",
+  "eos_token_id": 1,
+  "final_logit_softcapping": 30.0,
+  "head_dim": 256,
+  "hidden_act": "gelu_pytorch_tanh",
+  "hidden_activation": "gelu_pytorch_tanh",
+  "hidden_size": 3584,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 8192,
+  "model_type": "gemma2",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 42,
+  "num_key_value_heads": 8,
+  "pad_token_id": 0,
+  "query_pre_attn_scalar": 224,
+  "rms_norm_eps": 1e-06,
+  "rope_theta": 10000.0,
+  "sliding_window": 4096,
+  "sliding_window_size": 4096,
+  "torch_dtype": "float32",
+  "transformers_version": "4.42.3",
+  "use_cache": true,
+  "vocab_size": 256000
+}
+
+
+[INFO|patcher.py:79] 2024-08-10 13:24:23,375 >> Using KV cache for faster generation.
+
+[INFO|modeling_utils.py:3553] 2024-08-10 13:24:23,471 >> loading weights file D:\models\gemma-2-9b\model.safetensors.index.json
+
+[INFO|modeling_utils.py:1531] 2024-08-10 13:24:23,480 >> Instantiating Gemma2ForCausalLM model under default dtype torch.float16.
+
+[INFO|configuration_utils.py:1000] 2024-08-10 13:24:23,481 >> Generate config GenerationConfig {
+  "bos_token_id": 2,
+  "cache_implementation": "hybrid",
+  "eos_token_id": 1,
+  "pad_token_id": 0
+}
+
+
+[INFO|modeling_utils.py:4364] 2024-08-10 13:25:00,084 >> All model checkpoint weights were used when initializing Gemma2ForCausalLM.
+
+
+[INFO|modeling_utils.py:4372] 2024-08-10 13:25:00,085 >> All the weights of Gemma2ForCausalLM were initialized from the model checkpoint at D:\models\gemma-2-9b.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use Gemma2ForCausalLM for predictions without further training.
+
+[INFO|configuration_utils.py:953] 2024-08-10 13:25:00,099 >> loading configuration file D:\models\gemma-2-9b\generation_config.json
+
+[INFO|configuration_utils.py:1000] 2024-08-10 13:25:00,100 >> Generate config GenerationConfig {
+  "bos_token_id": 2,
+  "cache_implementation": "hybrid",
+  "eos_token_id": 1,
+  "pad_token_id": 0
+}
+
+
+[INFO|attention.py:80] 2024-08-10 13:25:00,112 >> Using torch SDPA for faster training and inference.
+
+[INFO|adapter.py:195] 2024-08-10 13:25:01,546 >> Merged 1 adapter(s).
+
+[INFO|adapter.py:203] 2024-08-10 13:25:01,546 >> Loaded adapter(s): saves\Gemma-2-9B\lora\train_2024-08-01-21-34-03
+
+[INFO|loader.py:196] 2024-08-10 13:25:01,556 >> all params: 9,241,705,984
+
+[INFO|trainer.py:3788] 2024-08-10 13:25:01,635 >> 
+***** Running Prediction *****
+
+[INFO|trainer.py:3790] 2024-08-10 13:25:01,635 >>   Num examples = 17771
+
+[INFO|trainer.py:3793] 2024-08-10 13:25:01,636 >>   Batch size = 2
+
+[INFO|trainer.py:127] 2024-08-10 15:24:06,015 >> Saving prediction results to saves\Gemma-2-9B\lora\eval_2024-08-01-21-34-03\generated_predictions.jsonl
+
