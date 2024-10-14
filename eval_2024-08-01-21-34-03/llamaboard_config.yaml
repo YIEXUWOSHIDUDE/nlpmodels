@@ -13,7 +13,7 @@ top.booster: auto
 top.checkpoint_path:
 - train_2024-08-01-21-34-03
 top.finetuning_type: lora
-top.model_name: Gemma-2-9B
+top.model_name: GLM-4-9B
 top.quantization_bit: none
 top.quantization_method: bitsandbytes
 top.rope_scaling: none

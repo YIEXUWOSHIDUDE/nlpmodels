@@ -1,9 +1,9 @@
 {
-    "predict_bleu-4": 79.17338539755784,
-    "predict_rouge-1": 96.25607265207361,
-    "predict_rouge-2": 31.16594451634686,
-    "predict_rouge-l": 96.25607265207361,
-    "predict_runtime": 7144.3885,
-    "predict_samples_per_second": 2.487,
-    "predict_steps_per_second": 1.244
+    "predict_bleu-4": 78.33015083000394,
+    "predict_rouge-1": 94.9637049631422,
+    "predict_rouge-2": 30.7326543244612,
+    "predict_rouge-l": 94.9637049631422,
+    "predict_runtime": 18074.5771,
+    "predict_samples_per_second": 0.983,
+    "predict_steps_per_second": 0.492
 }
