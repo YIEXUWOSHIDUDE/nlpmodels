@@ -1,4 +1,4 @@
-name: Sync Hugging Face Model to GitHub
+name: Sync Hugging Face Models to GitHub
 
 on:
   schedule:
@@ -19,16 +19,40 @@ jobs:
       - name: Install dependencies
         run: pip install huggingface_hub
 
-      - name: Download Model from Hugging Face
+      - name: Download nlpgemma29B Model
         run: |
           from huggingface_hub import snapshot_download
-          snapshot_download(repo_id="zeng981/nlpgemma29B", local_dir="hf_model")
+          snapshot_download(repo_id="zeng981/nlpgemma29B", local_dir="hf_models/nlpgemma29B")
+        shell: python
+
+      - name: Download NLPGLM-4-9B Model
+        run: |
+          from huggingface_hub import snapshot_download
+          snapshot_download(repo_id="zeng981/NLPGLM-4-9B", local_dir="hf_models/NLPGLM-4-9B")
+        shell: python
+
+      - name: Download NLPqwen-1.8b Model
+        run: |
+          from huggingface_hub import snapshot_download
+          snapshot_download(repo_id="zeng981/NLPqwen-1.8b", local_dir="hf_models/NLPqwen-1.8b")
+        shell: python
+
+      - name: Download NLPLlama3.2-3b Model
+        run: |
+          from huggingface_hub import snapshot_download
+          snapshot_download(repo_id="zeng981/NLPLlama3.2-3b", local_dir="hf_models/NLPLlama3.2-3b")
+        shell: python
+
+      - name: Download NLPQwen2-7b Model
+        run: |
+          from huggingface_hub import snapshot_download
+          snapshot_download(repo_id="zeng981/NLPQwen2-7b", local_dir="hf_models/NLPQwen2-7b")
         shell: python
 
       - name: Commit and Push to GitHub
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add hf_model
-          git commit -m "Sync nlpgemma29B model from Hugging Face" || echo "No changes to commit"
+          git add hf_models
+          git commit -m "Sync 5 Hugging Face models from Hugging Face" || echo "No changes to commit"
           git push
