@@ -1,4 +1,4 @@
-name: Sync Hugging Face Models to GitHub Releases
+name: Sync Hugging Face Models & Update README
 
 on:
   schedule:
@@ -9,7 +9,7 @@ on:
       - main  # 仅在 main 分支有变动时触发
 
 jobs:
-  sync:
+  sync_models:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +23,9 @@ jobs:
         run: |
           from huggingface_hub import snapshot_download
           import os
+
+          os.makedirs("hf_models", exist_ok=True)
+
           models = [
               "zeng981/nlpgemma29B",
               "zeng981/NLPGLM-4-9B",
@@ -30,21 +33,38 @@ jobs:
               "zeng981/NLPLlama3.2-3b",
               "zeng981/NLPQwen2-7b"
           ]
-          os.makedirs("hf_models", exist_ok=True)
+
           for model in models:
               snapshot_download(repo_id=model, local_dir=f"hf_models/{model.split('/')[-1]}")
         shell: python
 
-      - name: Create ZIP Archive
+      - name: Update README with Model Download Links
         run: |
-          zip -r hf_models.zip hf_models/
-
-      - name: Upload Model ZIP to GitHub Releases
-        uses: softprops/action-gh-release@v1
-        with:
-          files: hf_models.zip
-          tag_name: "latest"
-          name: "Latest Hugging Face Models"
-          body: "This release contains the latest backup of Hugging Face models."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo "# Paper Model Submission" > README.md
+          echo "This repository contains the code for our paper model submission." >> README.md
+          echo "" >> README.md
+          echo "## 🔗 Download Full Models" >> README.md
+          echo "Due to GitHub file size limitations, the full models are available on Hugging Face:" >> README.md
+          echo "- **[nlpgemma29B](https://huggingface.co/zeng981/nlpgemma29B)**" >> README.md
+          echo "- **[NLPGLM-4-9B](https://huggingface.co/zeng981/NLPGLM-4-9B)**" >> README.md
+          echo "- **[NLPqwen-1.8b](https://huggingface.co/zeng981/NLPqwen-1.8b)**" >> README.md
+          echo "- **[NLPLlama3.2-3b](https://huggingface.co/zeng981/NLPLlama3.2-3b)**" >> README.md
+          echo "- **[NLPQwen2-7b](https://huggingface.co/zeng981/NLPQwen2-7b)**" >> README.md
+          echo "" >> README.md
+          echo "## 📥 How to Download" >> README.md
+          echo "To download models locally, run:" >> README.md
+          echo '```python' >> README.md
+          echo 'from huggingface_hub import snapshot_download' >> README.md
+          echo 'models = [' >> README.md
+          echo '    "zeng981/nlpgemma29B",' >> README.md
+          echo '    "zeng981/NLPGLM-4-9B",' >> README.md
+          echo '    "zeng981/NLPqwen-1.8b",' >> README.md
+          echo '    "zeng981/NLPLlama3.2-3b",' >> README.md
+          echo '    "zeng981/NLPQwen2-7b"' >> README.md
+          echo ']' >> README.md
+          echo 'for model in models:' >> README.md
+          echo '    snapshot_download(repo_id=model, local_dir=f"./{model.split('/')[-1]}")' >> README.md
+          echo '```' >> README.md
+          git add README.md
+          git commit -m "Update README with Hugging Face model download links"
+          git push origin main
