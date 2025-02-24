@@ -1,4 +1,4 @@
-name: Sync Hugging Face Models to GitHub
+name: Sync Hugging Face Models to GitHub Releases
 
 on:
   schedule:
@@ -19,40 +19,32 @@ jobs:
       - name: Install dependencies
         run: pip install huggingface_hub
 
-      - name: Download nlpgemma29B Model
+      - name: Download Hugging Face Models
         run: |
           from huggingface_hub import snapshot_download
-          snapshot_download(repo_id="zeng981/nlpgemma29B", local_dir="hf_models/nlpgemma29B")
+          import os
+          models = [
+              "zeng981/nlpgemma29B",
+              "zeng981/NLPGLM-4-9B",
+              "zeng981/NLPqwen-1.8b",
+              "zeng981/NLPLlama3.2-3b",
+              "zeng981/NLPQwen2-7b"
+          ]
+          os.makedirs("hf_models", exist_ok=True)
+          for model in models:
+              snapshot_download(repo_id=model, local_dir=f"hf_models/{model.split('/')[-1]}")
         shell: python
 
-      - name: Download NLPGLM-4-9B Model
+      - name: Create ZIP Archive
         run: |
-          from huggingface_hub import snapshot_download
-          snapshot_download(repo_id="zeng981/NLPGLM-4-9B", local_dir="hf_models/NLPGLM-4-9B")
-        shell: python
+          zip -r hf_models.zip hf_models/
 
-      - name: Download NLPqwen-1.8b Model
-        run: |
-          from huggingface_hub import snapshot_download
-          snapshot_download(repo_id="zeng981/NLPqwen-1.8b", local_dir="hf_models/NLPqwen-1.8b")
-        shell: python
-
-      - name: Download NLPLlama3.2-3b Model
-        run: |
-          from huggingface_hub import snapshot_download
-          snapshot_download(repo_id="zeng981/NLPLlama3.2-3b", local_dir="hf_models/NLPLlama3.2-3b")
-        shell: python
-
-      - name: Download NLPQwen2-7b Model
-        run: |
-          from huggingface_hub import snapshot_download
-          snapshot_download(repo_id="zeng981/NLPQwen2-7b", local_dir="hf_models/NLPQwen2-7b")
-        shell: python
-
-      - name: Commit and Push to GitHub
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add hf_models
-          git commit -m "Sync 5 Hugging Face models from Hugging Face" || echo "No changes to commit"
-          git push
+      - name: Upload Model ZIP to GitHub Releases
+        uses: softprops/action-gh-release@v1
+        with:
+          files: hf_models.zip
+          tag_name: "latest"
+          name: "Latest Hugging Face Models"
+          body: "This release contains the latest backup of Hugging Face models."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
