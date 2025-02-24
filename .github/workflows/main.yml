@@ -1,4 +1,4 @@
-name: Sync Hugging Face Models & Update README
+name: Update README with Hugging Face Download Links
 
 on:
   schedule:
@@ -9,7 +9,7 @@ on:
       - main  # 仅在 main 分支有变动时触发
 
 jobs:
-  sync_models:
+  update_readme:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,25 +18,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install huggingface_hub
-
-      - name: Download Hugging Face Models
-        run: |
-          from huggingface_hub import snapshot_download
-          import os
-
-          os.makedirs("hf_models", exist_ok=True)
-
-          models = [
-              "zeng981/nlpgemma29B",
-              "zeng981/NLPGLM-4-9B",
-              "zeng981/NLPqwen-1.8b",
-              "zeng981/NLPLlama3.2-3b",
-              "zeng981/NLPQwen2-7b"
-          ]
-
-          for model in models:
-              snapshot_download(repo_id=model, local_dir=f"hf_models/{model.split('/')[-1]}")
-        shell: python
 
       - name: Update README with Model Download Links
         run: |
